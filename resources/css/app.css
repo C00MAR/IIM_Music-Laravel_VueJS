@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Almarena-Mono';
+    src: url('/public/fonts/Almarena-Mono-Display-Light.otf');
+}
+
+@font-face {
+    font-family: 'Almarena-Mono-Light';
+    src: url('/public/fonts/Almarena-Mono-Light.otf');
+}
+
 [x-cloak] {
     display: none;
 }

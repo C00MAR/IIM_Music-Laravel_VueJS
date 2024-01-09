@@ -24,14 +24,12 @@ class TrackController extends Controller
 
     public function store(Request $request)
     {
-        Track::create([
-            'uuid' => 'trk'.Str::uuid(),
-            'title' => $this->faker->sentence(3),
-            'artist' => $this->faker->name,
-            'image' => '',
-            'music' => '',
-            'display' => true,
-            'nb_stream' => 0,
+        $request->validate([
+            'title' => ['string', 'required'],
+            'artist' => ['string', 'required'],
+            'image' => ['string', 'required'],
+            'music' => ['string', 'required'],
+            'display' => ['boolean', 'required'],
         ]);
 
         return redirect()->route('tracks.index');

@@ -2,7 +2,9 @@
     <div class="noise"></div>
     <MusicLayout>
         <template #title>
-            Musiques
+            <h1 class="title">
+                Musiques
+            </h1>
         </template>
         <template #action>
             <Link :href="route('tracks.create')">
@@ -42,6 +44,7 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
 }
 
 body {
@@ -63,16 +66,23 @@ span {
     text-decoration: none;
 }
 
-// .noise::before {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 100vw;
-//     height: 100vh;
-//     content: "";
-//     opacity: 0.05;
-//     z-index: 1000;
-//     pointer-events: none;
-//     background: url(../../../../public/noise.gif);
-// }
+.noise::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    content: "";
+    opacity: 0.05;
+    z-index: 1000;
+    pointer-events: none;
+    background: url(../../../../public/noise.gif);
+}
+
+.title{
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    font-family: 'Almarena-Mono';
+}
 </style>
