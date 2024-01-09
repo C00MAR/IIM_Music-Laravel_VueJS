@@ -106,3 +106,7 @@ const navigation = [
     { name: 'Calendar', href: '#', current: false },
 ]
 </script>
+
+<style lang="scss">
+
+</style>
