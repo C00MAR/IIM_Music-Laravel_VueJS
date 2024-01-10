@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('music');
             $table->boolean('display')->default(true);
-            $table->integer('nb_stream');
+            $table->integer('nb_stream')->default(0);
+            $table->integer('duration')->default(0);
             $table->timestamps();
         });
     }

@@ -1,10 +1,13 @@
 <template>
+    <div class="noise"></div>
     <MusicLayout>
         <template #title>
-            Musiques
+            <h1 class="title">
+                Musiques :
+            </h1>
         </template>
         <template #action>
-            <Link :href="route('tracks.index')">
+            <Link :href="route('tracks.index')" class="btn">
                 Retour
             </Link>
         </template>
@@ -29,19 +32,19 @@
 
                 <!-- Artiste -->
                 <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="artiste">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="artist">
                         Artiste
                     </label>
                     <input
-                        id="artiste"
-                        v-model="form.artiste"
+                        id="artist"
+                        v-model="form.artist"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500' : form.errors.artiste  }"
+                        :class="{ 'border-red-500' : form.errors.artist  }"
                         type="text"
                         placeholder="Artiste"
-                        name="artiste"
+                        name="artist"
                     >
-                    <p class="text-red-500 text-xs italic">{{ form.errors.artiste }}</p>
+                    <p class="text-red-500 text-xs italic">{{ form.errors.artist }}</p>
                 </div>
 
                 <!-- Public -->
@@ -78,24 +81,24 @@
 
                 <!-- Audio -->
                 <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="audio">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="music">
                         Audio
                     </label>
                     <input
-                        id="audio"
-                        @input="form.audio = $event.target.files[0]"
+                        id="music"
+                        @input="form.music = $event.target.files[0]"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500' : form.errors.audio  }"
+                        :class="{ 'border-red-500' : form.errors.music  }"
                         type="file"
-                        name="audio"
+                        name="music"
                     >
                 </div>
+                <input
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit"
+                    value="Créer la Musique">
+                    <p>{{ form }}</p>
             </form>
-            <!-- Sumbit -->
-            <input
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-            value="Créer la Musique">
         </template>
     </MusicLayout>
 </template>
@@ -122,11 +125,7 @@ export default {
     },
     methods: {
         submitForm() {
-            this.form.post(route('tracks.store'), {
-                onSuccess: () => {
-                    this.$inertia.visit(route('tracks.index'))
-                }
-            })
+            this.form.post(route('tracks.store'));
         }
     }
 }

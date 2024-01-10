@@ -1,7 +1,27 @@
+<script>
+export default {
+    props: {
+        tracks: Array,
+    },
+    emits: ['searchUp'],
+    data() {
+        return {
+            search: '',
+        }
+    },
+    methods: {
+        updateSearch() {
+            this.$emit('searchUp', this.search);
+        }
+    }
+    
+}
+</script>
+
 <template>
     <Disclosure as="nav" class="nav" v-slot="{ open }">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-between">
+        <div class="container">
+            <div class="relative flex items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
                     <DisclosureButton
@@ -12,8 +32,8 @@
                         <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
                     </DisclosureButton>
                 </div>
-                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                    <div class="hidden sm:ml-6 sm:block">
+                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start container">
+                    <div class="hidden sm:block">
                         <div class="flex">
                             <a v-for="(item, index) in navigation" :key="item.name" :href="item.href" class="link"
                                 :class="{ 'last_link': index === navigation.length - 1 }"
@@ -23,7 +43,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div class="search_container">
+                    <input type="search" name="search_track" id="search_track" v-model="search" @input="updateSearch">
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center sm:static profil_picture_container">
                 
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-3">
@@ -74,9 +97,9 @@
         </DisclosurePanel>
     </Disclosure>
 
-    <div class="px-16">
+    <div class="container border_style px-8">
         <div class="flex justify-between items-center">
-            <h4 class="text-3xl font-bold my-6">
+            <h4 class="title_container my-6">
                 <slot name="title"></slot>
             </h4>
             <div>
@@ -120,15 +143,59 @@ const navigation = [
             color: #e6ded6;
         }
     }
+    .profil_picture_container {
+        padding: 10px;
+        padding-right: 2vw;
+        border-right: 1px solid #2A2927;
 
-    .profil_picture {
-        border: 1px solid #101010;
-        padding: 5px;
-        border-radius: 32px;
+        .profil_picture {
+            border: 1px solid #101010;
+            padding: 5px;
+            border-radius: 32px;
 
-        &:hover {
-            background-color: #2A2927;
+            &:hover {
+                background-color: #2A2927;
+            }
         }
+    }
+}
+
+.container {
+    max-width: 75rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    &.border_style {
+        border-left: 1px solid #2A2927;
+        border-right: 1px solid #2A2927;
+        border-bottom: 1px solid #2A2927;
+    }
+
+    .title_container {
+        // border-right: 1px solid #2A2927;
+        // padding: 1.5rem 7.69rem 1.5rem 2rem;
+        font-weight: 900;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: 'Almarena-Mono';
+}
+
+.btn {
+    padding: 10px;
+    background-color: #2A2927;
+    color: #e6ded6;
+    border: 1px solid transparent;
+    letter-spacing: 1px;
+
+    &:hover {
+        border-radius: 8px;
+        background-color: #0f0f0f;
     }
 }
 </style>

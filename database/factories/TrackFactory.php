@@ -25,6 +25,7 @@ class TrackFactory extends Factory
             'music' => '',
             'display' => true,
             'nb_stream' => 0,
+            'duration' => 0,
         ];
     }
 }
