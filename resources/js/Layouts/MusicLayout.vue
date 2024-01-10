@@ -1,4 +1,9 @@
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+library.add(faMagnifyingGlass)
+
 export default {
     props: {
         tracks: Array,
@@ -14,7 +19,7 @@ export default {
             this.$emit('searchUp', this.search);
         }
     }
-    
+
 }
 </script>
 
@@ -35,96 +40,40 @@ export default {
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start container">
                     <div class="hidden sm:block">
                         <div class="flex">
-                            <!-- <a v-for="(item, index) in navigation" :key="item.name" :href="item.href" class="link"
-                                :class="{ 'last_link': index === navigation.length - 1 }"
-                                :aria-current="item.current ? 'page' : undefined">
-                                {{ item.name }}
-                            </a> -->
-                            <Link
-                                :href="route('tracks.index')"
-                                class="link"
-                                >
-                                Musiques
+                            <Link :href="route('tracks.index')" class="link"
+                                :class="[route().current().includes('tracks') ? 'active_tab' : '']">
+                            Musiques
                             </Link>
-                            <Link
-                                href="#"
-                                class="link"
-                                >
-                                Playlists
+                            <Link :href="route('playlists.index')" class="link"
+                                :class="[route().current().includes('playlists') ? 'active_tab' : '']">
+                            Playlists
                             </Link>
                         </div>
                     </div>
                 </div>
                 <div class="search_container">
-                    <input type="search" name="search_track" id="search_track" v-model="search" @input="updateSearch">
+                    <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
+                    <input type="search" name="search_track" id="search_track" v-model="search" @input="updateSearch"
+                        placeholder="Search">
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center sm:static profil_picture_container">
-                
+
                     <!-- Profile dropdown -->
                     <div class="login_container">
-                        <Link
-                            v-if="!$page.props.auth.user"
-                            :href="route('login')"
-                            class="profil_picture login_btn"
-                            >
-                            <p class="not-hovered">L</p>
-                            <p class="hovered">Login</p>
+                        <Link v-if="!$page.props.auth.user" :href="route('login')" class="profil_picture login_btn">
+                        <p class="not-hovered">L</p>
+                        <p class="hovered">Login</p>
                         </Link>
-                        <Link
-                            v-if="!$page.props.auth.user"
-                            :href="route('register')"
-                            class="profil_picture login_btn"
-                            >
-                            <p class="not-hovered">R</p>
-                            <p class="hovered">Register</p>
+                        <Link v-if="!$page.props.auth.user" :href="route('register')" class="profil_picture login_btn">
+                        <p class="not-hovered">R</p>
+                        <p class="hovered">Register</p>
                         </Link>
-                        <Link
-                            v-if="$page.props.auth.user"
-                            :href="route('logout')"
-                            method="post"
-                            as="button"
-                            class="profil_picture rounded-full login_btn"
-                            >
-                            <p class="not-hovered">L</p>
-                            <p class="hovered">Logout</p>
+                        <Link v-if="$page.props.auth.user" :href="route('logout')" method="post" as="button"
+                            class="profil_picture rounded-full login_btn">
+                        <p class="not-hovered">L</p>
+                        <p class="hovered">Logout</p>
                         </Link>
                     </div>
-
-                    <!-- <Menu as="div" class="relative ml-3">
-                        <div>
-                            <MenuButton
-                                class="profil_picture">
-                                <span class="absolute -inset-1.5" />
-                                <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="" />
-                            </MenuButton>
-                        </div>
-                        <transition enter-active-class="transition ease-out duration-100"
-                            enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100"
-                            leave-active-class="transition ease-in duration-75"
-                            leave-from-class="transform opacity-100 scale-100"
-                            leave-to-class="transform opacity-0 scale-95">
-                            <MenuItems
-                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
-                                    Profile</a>
-                                </MenuItem>
-                                <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
-                                </MenuItem>
-                                <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
-                                    out</a>
-                                </MenuItem>
-                            </MenuItems>
-                        </transition>
-                    </Menu> -->
                 </div>
             </div>
         </div>
@@ -135,8 +84,8 @@ export default {
                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
                     :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
             </div>
-        </DisclosurePanel> 
-    </Disclosure> 
+        </DisclosurePanel>
+    </Disclosure>
 
     <div class="container border_style px-8">
         <div class="flex justify-between items-center">
@@ -153,14 +102,7 @@ export default {
 
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-
-const navigation = [
-    { name: 'Musiques', href: 'tracks.index', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
-]
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <style lang="scss">
@@ -181,42 +123,26 @@ const navigation = [
             color: #e6ded6;
         }
     }
+
     .profil_picture_container {
         padding: 10px;
+        height: 10vh;
+        transition: all 0.2s ease-in-out;
 
-        .profil_picture {
-            transition: all 0.2s ease-in-out;
-            border: 1px solid #2A2927;
-            padding: 5px;
-            border-radius: 32px;
-
-            &:hover {
-                background-color: #2A2927;
-            }
-        }
-    }
-
-    .search_container {
-
-        .search {
-            background-color: transparent;
-        }
-    }
-
-    .login_container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: all 8s ease-in-out;
-        
-        .login_btn{
+        .login_container {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2rem;
+            gap: 8px;
+        }
+
+        .login_btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 2rem;
-            padding: 0;
+            padding: 5px 10px;
+            border: 1px solid #2A2927;
 
             .not-hovered {
                 display: block;
@@ -225,20 +151,85 @@ const navigation = [
             .hovered {
                 display: none;
             }
+        }
 
-            &:hover {
-                background-color: #2A2927;
-                width: fit-content;
-                padding: 15px;
+        &:hover {
+            background-color: #2A2927;
+            // width: 7vw;
 
-                .not-hovered {
-                    display: none;
-                }
+            .login_btn {
+                // width: 4rem;
+                padding: 10px 5px;
+                border: 1px solid #e6ded6;
+            }
 
-                .hovered {
-                    display: block;
-                    color: #e6ded6;
-                }
+            .login_container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                transition: all 8s ease-in-out;
+            }
+
+            .not-hovered {
+                display: none;
+            }
+
+            .hovered {
+                display: block;
+                color: #e6ded6;
+            }
+
+        }
+    }
+
+
+    // .profil_picture {
+    //     transition: all 0.2s ease-in-out;
+    //     border: 1px solid #2A2927;
+    //     padding: 5px;
+    //     border-radius: 32px;
+
+    //     &:hover {
+    //         background-color: #2A2927;
+    //     }
+    // }
+
+    .search_container {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border-right: 1px solid #2A2927;
+        border-left: 1px solid #2A2927;
+        padding: 2px 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        .icon {
+            padding: 12px;
+        }
+
+        input {
+            background-color: transparent;
+            border: 0;
+            width: 0;
+            padding: 0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        &:hover {
+            background-color: #2A2927;
+            color: #e6ded6;
+
+            input {
+                width: 10vw;
+                padding: 5px;
+                border-radius: 32px;
+                border: 1px solid #2A2927;
+                background-color: #e6ded6;
+                color: #2A2927;
             }
         }
     }
@@ -254,7 +245,7 @@ const navigation = [
         border-right: 1px solid #2A2927;
         border-bottom: 1px solid #2A2927;
 
-        &.nav{
+        &.nav {
             border-bottom: 0;
         }
     }

@@ -26,4 +26,14 @@ class Track extends Model
     {
         return 'uuid';
     }
+
+    /**
+     * Get all of the playlists for the Track
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function playlists(): BelongsToMany
+    {
+        return $this->BelongsToMany(Playlist::class);
+    }
 }
