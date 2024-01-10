@@ -22,6 +22,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@mail.com',
         ]);
 
+        User::factory()->create([
+            'name' => 'Admin Test',
+            'email' => 'test@exemple.com',
+            'admin' => true
+        ]);
+
         Track::factory(50)->create();
     }
 }

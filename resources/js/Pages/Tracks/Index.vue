@@ -1,6 +1,7 @@
 <script setup>
 import MusicLayout from '@/Layouts/MusicLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import MusicTile from '@/Components/TracksComps/MusicTile.vue';
 </script>
 
 <template>
@@ -12,29 +13,21 @@ import { Link } from '@inertiajs/vue3';
             </h1>
         </template>
         <template #action>
-            <Link :href="route('tracks.create')" class="btn">
-            Créer une musique
+            <Link 
+            v-if="this.$page.props.isAdmin"
+            :href="route('tracks.create')" class="btn">
+                Créer une musique
             </Link>
         </template>
         <template #content>
             <div class="container border_style">
                 <ul>
-                    <div class="track_container" v-for="track in filteredTracks" :key="track.uuid">
-                        <div class="spliter">
-                            <img :src="`/storage/${track.image}`" alt="track_cover" class="track_cover" @click="playAudio(track)">
-                            <div class="info_container">
-                                <h3 class="track_title" @click="playAudio(track)">{{ track.title }}</h3>
-                                <h4 class="track_artist">{{ track.artist }}</h4>
-                            </div>
-                        </div>
-                        <!-- <div class="track_player">
-                            <audio controls :src="`/storage/${track.music}`"></audio>
-                        </div> -->
-                        <div class="track_info_container">
-                            <p class="track_stream">{{ track.nb_stream }} Stream</p>
-                            <p class="track_duration">{{ track.duration }}</p>
-                        </div>
-                    </div>
+                    <MusicTile 
+                    v-for="track in filteredTracks" 
+                    :key="track.uuid" 
+                    :track="track"
+                    :active="currentTrack"
+                    @playAudio="playMusic"/>
                 </ul>
             </div>
         </template>
@@ -44,7 +37,7 @@ import { Link } from '@inertiajs/vue3';
 <script>
 export default {
     components: {
-        MusicLayout, Link
+        MusicLayout, Link, MusicTile
     },
     props: {
         tracks: Array,
@@ -65,7 +58,7 @@ export default {
         }
     },
     methods: {
-        playAudio(track) {
+        playMusic(track) {
             const audioUrl = '/storage/'+ track.music;
             if (!this.currentTrack) {
                 this.audio = new Audio(audioUrl);
@@ -74,15 +67,14 @@ export default {
                 this.audio.pause();
                 this.audio.src = audioUrl;
                 this.audio.play();
-            } else if (this.audio.paused) {
-                this.audio.play();
+            } else if (!this.audio.paused) {
+                this.audio.pause();
             } else {
                 this.audio.play();
             }
+
             this.currentTrack = track;
-            this.audio.addEventListener('ended', () => {
-                this.currentTrack = null;
-            });
+            this.audio.addEventListener('ended', () => this.currentTrack = null);
         },
         handleSearchUpdate(value) {
             this.search = value;
@@ -98,7 +90,6 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: all 0.2s ease-in-out;
 }
 
 body {
@@ -106,38 +97,12 @@ body {
     background-color: #e6ded6;
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-span {
-    font-family: 'Lato', sans-serif;
-    color: #2A2927;
-    text-decoration: none;
-}
-
-.noise::before {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    content: "";
-    opacity: 0.05;
-    z-index: 1000;
-    pointer-events: none;
-    background: url(../../../../public/noise.gif);
-}
-
 .track_container{
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #2A2927;
+    transition: all 0.2s ease-in-out;
 
     .spliter{
         display: flex;
@@ -148,6 +113,7 @@ span {
     .track_cover {
         width: 6rem;
         height: 6rem;
+        cursor: pointer;
     }
 
     .info_container{
@@ -208,6 +174,15 @@ span {
         }
         .track_duration {
             font-weight: 600;
+        }
+    }
+
+    &:hover {
+        background-color: #2A2927;
+        color: #e6ded6;
+
+        p, h3, h4 {
+            color: #e6ded6;
         }
     }
 }

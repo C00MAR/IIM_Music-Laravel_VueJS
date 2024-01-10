@@ -3,8 +3,9 @@
     <MusicLayout>
         <template #title>
             <h1 class="title">
-                Créer une musique :
+                Éditer la musique :
             </h1>
+            <p>{{ track.title }}</p>
         </template>
         <template #action>
             <Link :href="route('tracks.index')" class="btn">
@@ -64,39 +65,11 @@
                     </select>
                 </div>
 
-                <!-- Image -->
-                <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
-                        Image
-                    </label>
-                    <input
-                        id="image"
-                        @input="form.image = $event.target.files[0]"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500' : form.errors.image  }"
-                        type="file"
-                        name="image"
-                    >
-                </div>
 
-                <!-- Audio -->
-                <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="music">
-                        Audio
-                    </label>
-                    <input
-                        id="music"
-                        @input="form.music = $event.target.files[0]"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500' : form.errors.music  }"
-                        type="file"
-                        name="music"
-                    >
-                </div>
                 <input
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit"
-                    value="Créer la Musique">
+                    value="Éditer la Musique">
             </form>
         </template>
     </MusicLayout>
@@ -112,18 +85,18 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                title: '',
-                artist: '',
-                album: '',
-                image: null,
-                music: null,
-                display: true
+                title: this.track.title,
+                artist: this.track.artist,
+                display: this.track.display ? true : false,
             })
         }
     },
+    props: {
+        track: Object,
+    },
     methods: {
         submitForm() {
-            this.form.post(route('tracks.store'));
+            this.form.put(route('tracks.update', { track: this.track}));
         }
     }
 }

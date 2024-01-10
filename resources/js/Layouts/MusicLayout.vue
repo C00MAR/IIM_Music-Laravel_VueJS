@@ -20,7 +20,7 @@ export default {
 
 <template>
     <Disclosure as="nav" class="nav" v-slot="{ open }">
-        <div class="container">
+        <div class="container border_style nav">
             <div class="relative flex items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
@@ -35,11 +35,23 @@ export default {
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start container">
                     <div class="hidden sm:block">
                         <div class="flex">
-                            <a v-for="(item, index) in navigation" :key="item.name" :href="item.href" class="link"
+                            <!-- <a v-for="(item, index) in navigation" :key="item.name" :href="item.href" class="link"
                                 :class="{ 'last_link': index === navigation.length - 1 }"
                                 :aria-current="item.current ? 'page' : undefined">
                                 {{ item.name }}
-                            </a>
+                            </a> -->
+                            <Link
+                                :href="route('tracks.index')"
+                                class="link"
+                                >
+                                Musiques
+                            </Link>
+                            <Link
+                                href="#"
+                                class="link"
+                                >
+                                Playlists
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -49,7 +61,36 @@ export default {
                 <div class="absolute inset-y-0 right-0 flex items-center sm:static profil_picture_container">
                 
                     <!-- Profile dropdown -->
-                    <Menu as="div" class="relative ml-3">
+                    <div class="login_container">
+                        <Link
+                            v-if="!$page.props.auth.user"
+                            :href="route('login')"
+                            class="profil_picture login_btn"
+                            >
+                            <p class="not-hovered">L</p>
+                            <p class="hovered">Login</p>
+                        </Link>
+                        <Link
+                            v-if="!$page.props.auth.user"
+                            :href="route('register')"
+                            class="profil_picture login_btn"
+                            >
+                            <p class="not-hovered">R</p>
+                            <p class="hovered">Register</p>
+                        </Link>
+                        <Link
+                            v-if="$page.props.auth.user"
+                            :href="route('logout')"
+                            method="post"
+                            as="button"
+                            class="profil_picture rounded-full login_btn"
+                            >
+                            <p class="not-hovered">L</p>
+                            <p class="hovered">Logout</p>
+                        </Link>
+                    </div>
+
+                    <!-- <Menu as="div" class="relative ml-3">
                         <div>
                             <MenuButton
                                 class="profil_picture">
@@ -83,7 +124,7 @@ export default {
                                 </MenuItem>
                             </MenuItems>
                         </transition>
-                    </Menu>
+                    </Menu> -->
                 </div>
             </div>
         </div>
@@ -94,8 +135,8 @@ export default {
                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
                     :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
             </div>
-        </DisclosurePanel>
-    </Disclosure>
+        </DisclosurePanel> 
+    </Disclosure> 
 
     <div class="container border_style px-8">
         <div class="flex justify-between items-center">
@@ -115,7 +156,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
+    { name: 'Musiques', href: 'tracks.index', current: true },
     { name: 'Team', href: '#', current: false },
     { name: 'Projects', href: '#', current: false },
     { name: 'Calendar', href: '#', current: false },
@@ -127,16 +168,13 @@ const navigation = [
     border-bottom: 1px solid #2A2927;
 
     .link {
-        border-left: 1px solid #2A2927;
         width: 7vw;
         height: 10vh;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        &.last_link {
-            border-right: 1px solid #2A2927;
-        }
+        transition: all 0.2s ease-in-out;
+        border-right: 1px solid #2A2927;
 
         &:hover {
             background-color: #2A2927;
@@ -145,16 +183,62 @@ const navigation = [
     }
     .profil_picture_container {
         padding: 10px;
-        padding-right: 2vw;
-        border-right: 1px solid #2A2927;
 
         .profil_picture {
-            border: 1px solid #101010;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #2A2927;
             padding: 5px;
             border-radius: 32px;
 
             &:hover {
                 background-color: #2A2927;
+            }
+        }
+    }
+
+    .search_container {
+
+        .search {
+            background-color: transparent;
+        }
+    }
+
+    .login_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 8s ease-in-out;
+        
+        .login_btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+
+            .not-hovered {
+                display: block;
+            }
+
+            .hovered {
+                display: none;
+            }
+
+            &:hover {
+                background-color: #2A2927;
+                width: fit-content;
+                padding: 15px;
+
+                .not-hovered {
+                    display: none;
+                }
+
+                .hovered {
+                    display: block;
+                    color: #e6ded6;
+                }
             }
         }
     }
@@ -169,6 +253,10 @@ const navigation = [
         border-left: 1px solid #2A2927;
         border-right: 1px solid #2A2927;
         border-bottom: 1px solid #2A2927;
+
+        &.nav{
+            border-bottom: 0;
+        }
     }
 
     .title_container {
@@ -192,6 +280,7 @@ const navigation = [
     color: #e6ded6;
     border: 1px solid transparent;
     letter-spacing: 1px;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
         border-radius: 8px;
