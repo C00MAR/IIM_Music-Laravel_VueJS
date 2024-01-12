@@ -69,7 +69,7 @@ export default {
                         <p class="hovered">Register</p>
                         </Link>
                         <Link v-if="$page.props.auth.user" :href="route('logout')" method="post" as="button"
-                            class="profil_picture rounded-full login_btn">
+                            class="profil_picture login_btn">
                         <p class="not-hovered">L</p>
                         <p class="hovered">Logout</p>
                         </Link>
@@ -134,52 +134,72 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
             align-items: center;
             justify-content: center;
             gap: 8px;
-        }
+            transition: all 0.2s ease-in-out;
+    
+            .login_btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 2rem;
+                width: 2rem;
+                padding: 5px 10px;
+                border: 1px solid #2A2927;
+                transition: all 0.2s ease-in-out;
 
-        .login_btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 2rem;
-            padding: 5px 10px;
-            border: 1px solid #2A2927;
+                .not-hovered {
+                    display: block;
+                    transition: all 0.2s ease-in-out;
+                }
 
-            .not-hovered {
-                display: block;
-            }
-
-            .hovered {
-                display: none;
+                .hovered {
+                    display: none;
+                    transition: all 0.2s ease-in-out;
+                }
             }
         }
 
         &:hover {
             background-color: #2A2927;
-            // width: 7vw;
-
-            .login_btn {
-                // width: 4rem;
-                padding: 10px 5px;
-                border: 1px solid #e6ded6;
-            }
 
             .login_container {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 gap: 8px;
-                transition: all 8s ease-in-out;
-            }
+                
+                .login_btn {
+                    padding: 10px 5px;
+                    border: 1px solid #e6ded6;
+                    background-color: #e6ded6;
+                    border-radius: 32px;
+                    width: 2rem;
 
-            .not-hovered {
-                display: none;
-            }
+                    .not-hovered {
+                        display: block;
+                        color: #2A2927;
+                    }
 
-            .hovered {
-                display: block;
-                color: #e6ded6;
-            }
+                    .hovered {
+                        display: none;
+                        color: #e6ded6;
+                    }
 
+                    &:hover {
+                        background-color: #2A2927;
+                        color: #e6ded6;
+                        width: fit-content;
+                        padding: 10px 10px;
+
+                        .not-hovered {
+                            display: none;
+                        }
+
+                        .hovered {
+                            display: block;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -226,10 +246,17 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
             input {
                 width: 10vw;
                 padding: 5px;
-                border-radius: 32px;
+                margin-left: 5px;
+                margin-right: 10px;
+                border-radius: 0;
                 border: 1px solid #2A2927;
                 background-color: #e6ded6;
                 color: #2A2927;
+                transition: all 0.2s ease-in-out;
+
+                &:hover {
+                    border-radius: 32px;
+                }
             }
         }
     }

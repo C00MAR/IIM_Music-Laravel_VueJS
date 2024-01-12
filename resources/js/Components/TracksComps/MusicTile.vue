@@ -55,72 +55,32 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
-* {
-    margin: 0;
+.btn_alt {
+    background-color: transparent;
+    border: none;
     padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 32px;
+    height: 2rem;
+    width: 2rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
-body {
-    font-family: 'Lato', sans-serif;
-    background-color: #e6ded6;
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-span {
-    font-family: 'Lato', sans-serif;
-    color: #2A2927;
-    text-decoration: none;
-}
-
-.noise::before {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    content: "";
-    opacity: 0.05;
-    z-index: 1000;
-    pointer-events: none;
-    background: url(../../../../public/noise.gif);
-}
-
-
+.track_container:hover {
     .btn_alt {
+        cursor: pointer;
+        color: #e6ded6;
         background-color: transparent;
-        border: none;
-        padding: 0;
-        margin: 0;
-        font-size: 1rem;
-        padding: 0.5rem;
-        border-radius: 32px;
-        height: 2rem;
-        width: 2rem;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-    }
-    .track_container:hover {
-        .btn_alt {
-            cursor: pointer;
-            color: #e6ded6;
-            background-color: transparent;
-            transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
 
-            &:hover {
-                background-color: #e6ded6;
-                color: #2A2927;
-            }
+        &:hover {
+            background-color: #e6ded6;
+            color: #2A2927;
         }
     }
+}
 </style>

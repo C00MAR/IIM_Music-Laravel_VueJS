@@ -12,9 +12,9 @@
             </Link>
         </template>
         <template #content>
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="submitForm" class="form border_style">
                 <!-- Title -->
-                <div class="mb-3">
+                <div class="input_container">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                         Titre
                     </label>
@@ -31,7 +31,7 @@
                 </div>
 
                 <!-- Artiste -->
-                <div class="mb-3">
+                <div class="input_container">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="artist">
                         Artiste
                     </label>
@@ -48,9 +48,9 @@
                 </div>
 
                 <!-- Public -->
-                <div class="mb-3">
+                <div class="input_container">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="display">
-                        Publique ?
+                        Publique
                     </label>
                     <select 
                         id="display"
@@ -65,7 +65,7 @@
                 </div>
 
                 <!-- Image -->
-                <div class="mb-3">
+                <div class="input_container">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
                         Image
                     </label>
@@ -80,7 +80,7 @@
                 </div>
 
                 <!-- Audio -->
-                <div class="mb-3">
+                <div class="input_container">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="music">
                         Audio
                     </label>
@@ -128,3 +128,21 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.input_container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #2A2927;
+
+    label {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        padding: 10px 10px;
+    }
+
+    input, select {
+        margin-bottom: 1rem;
+    }
+}
+</style>
