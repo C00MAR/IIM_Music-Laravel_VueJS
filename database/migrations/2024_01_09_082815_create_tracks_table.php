@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('uuid')->unique();
             $table->string('title');
             $table->string('artist');
-            $table->string('image');
+            $table->string('image')->default('default_cover.jpg');
             $table->string('music');
             $table->boolean('display')->default(true);
             $table->integer('nb_stream')->default(0);

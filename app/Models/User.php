@@ -64,7 +64,7 @@ class User extends Authenticatable
      * Get the playlists for the user.
      */
     
-    public function playlists(): HasMany
+    public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Playlist::class);
     }

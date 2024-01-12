@@ -35,51 +35,8 @@ library.add(faPenToSquare, faTrash)
 
 <script>
 export default {
-    emits: ['playAudio'],
-    props: {
-        track: Object,
-        active: {
-            type: Boolean,
-            default: false,
-        }
-    },
-    methods: {
-        playAudio() {
-            this.$emit('playAudio', this.track);
-        },
-    },components: {
+    components: {
         Link
     }
 }
 </script>
-
-<style lang="scss">
-.btn_alt {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font-size: 1rem;
-    padding: 0.5rem;
-    border-radius: 32px;
-    height: 2rem;
-    width: 2rem;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
-.track_container:hover {
-    .btn_alt {
-        cursor: pointer;
-        color: #e6ded6;
-        background-color: transparent;
-        transition: all 0.2s ease-in-out;
-
-        &:hover {
-            background-color: #e6ded6;
-            color: #2A2927;
-        }
-    }
-}
-</style>

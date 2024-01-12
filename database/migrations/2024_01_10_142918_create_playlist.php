@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('uuid')->unique();
             $table->foreignId('user_id')->constrained();
             $table->string('title');
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -34,6 +34,14 @@ class Playlist extends Model
 
     public function tracks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Track::class);
+        return $this->belongsToMany(Track::class)->withTimestamps();
+    }
+
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
     }
 }

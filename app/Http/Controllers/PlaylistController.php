@@ -15,7 +15,17 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Playlists/Index');
+        $user = request()->user();
+        
+        if ($user->is_admin) {
+            $playlists = Playlist::withCount('tracks')->get();
+        } else {
+            $playlists = $user->playlists()->withCount('tracks')->get();
+        }
+
+        return Inertia::render('Playlists/Index', [
+            'playlists' => $playlists,
+        ]);
     }
 
     /**
@@ -49,11 +59,13 @@ class PlaylistController extends Controller
             ]);
         }
 
+        $uuid = Str::uuid();
+
         $extensionImage = $request->image->extension();
         $imagePath = $request->image->storeAs('playlists/images', $uuid . '.' . $extensionImage);
 
         Playlist::create([
-            'uuid'=> 'pl-' . Str::uuid(),
+            'uuid'=> 'pl-' . $uuid,
             'user_id'=> $request->user()->id,
             'title'=> $request->title,
             'image'=> $imagePath,
@@ -67,7 +79,9 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
-        //
+        return Inertia::render('Playlists/Show', [
+            'playlist' => $playlist,
+        ]);
     }
 
     /**
@@ -75,7 +89,9 @@ class PlaylistController extends Controller
      */
     public function edit(Playlist $playlist)
     {
-        //
+        return Inertia::render('Playlists/Edit', [
+            'playlist' => $playlist,
+        ]);
     }
 
     /**
@@ -83,7 +99,30 @@ class PlaylistController extends Controller
      */
     public function update(Request $request, Playlist $playlist)
     {
-        //
+        $request->validate([
+            'title'=> ['string','required','max:255'],
+            'image'=> ['image','required'],
+            'tracks'=> ['array','required'],
+        ]);
+
+        $tracks = Track::whereIn('uuid', $request->tracks)->where('display', true)->get();
+        $playlist->title = $request->title;
+
+        if ($tracks->count() !== count($request->tracks)) {
+            throw ValidationException::withMessages([
+                'tracks' => 'One or more tracks are invalid.',
+            ]);
+        }
+
+        if ($request->hasFile('image')) {
+            $extensionImage = $request->image->extension();
+            $imagePath = $request->image->storeAs('playlists/images', $playlist->uuid . '.' . $extensionImage);
+            $playlist->image = $imagePath;
+        }
+
+        $playlist->save();
+
+        return redirect()->route('playlists.index');
     }
 
     /**
@@ -91,6 +130,9 @@ class PlaylistController extends Controller
      */
     public function destroy(Playlist $playlist)
     {
-        //
+        $playlist->tracks()->detach();
+        $playlist->delete();
+
+        return redirect()->route('playlists.index');
     }
 }

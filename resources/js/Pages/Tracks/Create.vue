@@ -15,13 +15,13 @@
             <form @submit.prevent="submitForm" class="form border_style">
                 <!-- Title -->
                 <div class="input_container">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                    <label class="block text-gray-700 text-sm font-bold" for="title">
                         Titre
                     </label>
                     <input
                         id="title"
                         v-model="form.title"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         :class="{ 'border-red-500' : form.errors.title  }"
                         type="text"
                         placeholder="Title"
@@ -32,13 +32,13 @@
 
                 <!-- Artiste -->
                 <div class="input_container">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="artist">
+                    <label class="block text-gray-700 text-sm font-bold" for="artist">
                         Artiste
                     </label>
                     <input
                         id="artist"
                         v-model="form.artist"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         :class="{ 'border-red-500' : form.errors.artist  }"
                         type="text"
                         placeholder="Artiste"
@@ -49,13 +49,13 @@
 
                 <!-- Public -->
                 <div class="input_container">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="display">
+                    <label class="block text-gray-700 text-sm font-bold" for="display">
                         Publique
                     </label>
                     <select 
                         id="display"
                         v-model="form.display"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         :class="{ 'border-red-500' : form.errors.display  }"
                         name="display"
                         >
@@ -66,13 +66,13 @@
 
                 <!-- Image -->
                 <div class="input_container">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+                    <label class="block text-gray-700 text-sm font-bold" for="image">
                         Image
                     </label>
                     <input
                         id="image"
                         @input="form.image = $event.target.files[0]"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         :class="{ 'border-red-500' : form.errors.image  }"
                         type="file"
                         name="image"
@@ -81,13 +81,13 @@
 
                 <!-- Audio -->
                 <div class="input_container">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="music">
+                    <label class="block text-gray-700 text-sm font-bold" for="music">
                         Audio
                     </label>
                     <input
                         id="music"
                         @input="form.music = $event.target.files[0]"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         :class="{ 'border-red-500' : form.errors.music  }"
                         type="file"
                         name="music"
@@ -128,21 +128,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.input_container {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #2A2927;
-
-    label {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-        padding: 10px 10px;
-    }
-
-    input, select {
-        margin-bottom: 1rem;
-    }
-}
-</style>

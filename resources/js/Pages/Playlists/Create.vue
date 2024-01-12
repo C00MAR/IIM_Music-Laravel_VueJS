@@ -15,13 +15,13 @@
             <form @submit.prevent="submitForm" class="form border_style">
                 <!-- Title -->
                 <div class="input_container">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                    <label class="block text-gray-700 text-sm font-bold" for="title">
                         Titre
                     </label>
                     <input
                         id="title"
                         v-model="form.title"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         :class="{ 'border-red-500' : form.errors.title  }"
                         type="text"
                         placeholder="Title"
@@ -49,6 +49,21 @@
                     </label>
                 </div>
                 <p class="text-red-500 text-xs italic">{{ form.errors.tracks }}</p>
+                
+                <!-- Image -->
+                <div class="input_container">
+                    <label class="block text-gray-700 text-sm font-bold" for="image">
+                        Image
+                    </label>
+                    <input
+                        id="image"
+                        @input="form.image = $event.target.files[0]"
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        :class="{ 'border-red-500' : form.errors.image  }"
+                        type="file"
+                        name="image"
+                    >
+                </div>
 
 
                 <input
@@ -76,6 +91,7 @@ export default {
             form: this.$inertia.form({
                 title: '',
                 tracks: [],
+                image: null,
             })
         }
     },
@@ -85,5 +101,4 @@ export default {
         }
     }
 }
-
 </script>

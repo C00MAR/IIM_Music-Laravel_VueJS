@@ -59,97 +59,97 @@ span {
 form {
     max-width: 75rem;
     margin: 0 auto;
-    border-left: 1px solid #2A2927;
-    border-right: 1px solid #2A2927;
-    border-bottom: 1px solid #2A2927;
+    border-left: 1px solid #2a2927;
+    border-right: 1px solid #2a2927;
+    border-bottom: 1px solid #2a2927;
 }
-
+form .input_container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #2a2927;
+}
+form .input_container label {
+    font-size: 1.3rem;
+    padding: 15px 10px;
+}
+form .input_container input, form .input_container select {
+    background-color: transparent;
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid #2a2927;
+}
 .track_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #2A2927;
+    border-bottom: 1px solid #2a2927;
     transition: all 0.2s ease-in-out;
-
-    .spliter {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .track_cover {
-        width: 6rem;
-        height: 6rem;
-        cursor: pointer;
-    }
-
-    .info_container{
-        display: flex;
-        flex-direction: column;
-        width: 20vw;
-
-        .track_title {
-            font-weight: 900;
-            font-size: 1.3rem;
-            transition: all 0s ease-in-out;
-
-            &:hover {
-                cursor: pointer;
-                text-decoration: underline;
-            }
-        }
-
-        .track_artist {
-            font-weight: 300;
-            font-size: 0.8rem;
-            &:hover {
-                font-weight: 900;
-                cursor: pointer;
-            }
-        }
-    }
-
-    .track_player {
-        audio {
-            width: 50vw;    
-        }
-        audio::-webkit-media-controls-panel {
-            background-color: #2A2927;
-        }
-        audio::-webkit-media-controls-panel {
-            background-color: #e6ded6;
-        }
-        audio::-webkit-media-controls-play-button {
-            background-color: #e6ded6;
-
-            &:hover {
-                background-color: #2a292720;
-                border-radius: 32px;
-            }
-        }
-    }
-
-    .track_info_container {
-        margin-right: 2rem;
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-
-        .track_stream {
-            font-size: 0.65rem;
-            font-weight: 300;
-        }
-        .track_duration {
-            font-weight: 600;
-        }
-    }
-
-    &:hover {
-        background-color: #2A2927;
-        color: #e6ded6;
-
-        p, h3, h4 {
-            color: #e6ded6;
-        }
-    }
+}
+.track_container .spliter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.track_container .track_cover {
+    width: 6rem;
+    height: 6rem;
+    cursor: pointer;
+}
+.track_container .info_container {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+}
+.track_container .info_container .track_title {
+    font-weight: 900;
+    font-size: 1.3rem;
+    transition: all 0s ease-in-out;
+}
+.track_container .info_container .track_title:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.track_container .info_container .track_artist {
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+.track_container .info_container .track_artist:hover {
+    font-weight: 900;
+    cursor: pointer;
+}
+.track_container .track_player audio {
+    width: 50vw;
+}
+.track_container .track_player audio::-webkit-media-controls-panel {
+    background-color: #2a2927;
+}
+.track_container .track_player audio::-webkit-media-controls-panel {
+    background-color: #e6ded6;
+}
+.track_container .track_player audio::-webkit-media-controls-play-button {
+    background-color: #e6ded6;
+}
+.track_container .track_player audio::-webkit-media-controls-play-button:hover {
+    background-color: #2a2927 20;
+    border-radius: 32px;
+}
+.track_container .track_info_container {
+    margin-right: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.track_container .track_info_container .track_stream {
+    font-size: 0.65rem;
+    font-weight: 300;
+}
+.track_container .track_info_container .track_duration {
+    font-weight: 600;
+}
+.track_container:hover {
+    background-color: #2a2927;
+    color: #e6ded6;
+}
+.track_container:hover p, .track_container:hover h3, .track_container:hover h4 {
+    color: #e6ded6;
 }
