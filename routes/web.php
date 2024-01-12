@@ -33,5 +33,10 @@ Route::middleware([
         Route::get('/tracks/{track}/edit', [TrackController::class, 'edit'])->name('tracks.edit');
         Route::put('/tracks/{track}', [TrackController::class, 'update'])->name('tracks.update');
         Route::delete('/tracks/{track}', [TrackController::class, 'destroy'])->name('tracks.destroy');
+
+        Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
+        Route::get('/playlists/{playlist}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
+        Route::put('/playlists/{playlist}', [PlaylistController::class, 'update'])->name('playlists.update');
+        Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
     });
 });

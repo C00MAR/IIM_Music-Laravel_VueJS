@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
+use App\Models\Track;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class PlaylistController extends Controller
 {
@@ -21,7 +23,11 @@ class PlaylistController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Playlists/Create');
+        $tracks = Track::where('display', true)->orderBy('title')->get();
+
+        return Inertia::render('Playlists/Create', [
+            'tracks' => $tracks
+        ]);
     }
 
     /**
@@ -29,7 +35,31 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=> ['string','required','max:255'],
+            'tracks'=> ['array','required'],
+            'image'=> ['image','required'],
+            'tracks.*'=> ['string', 'required'],
+        ]);
+
+        $tracks = Track::whereIn('uuid', $request->tracks)->where('display', true)->get();
+        if ($tracks->count() !== count($request->tracks)) {
+            throw ValidationException::withMessages([
+                'tracks' => 'One or more tracks are invalid.',
+            ]);
+        }
+
+        $extensionImage = $request->image->extension();
+        $imagePath = $request->image->storeAs('playlists/images', $uuid . '.' . $extensionImage);
+
+        Playlist::create([
+            'uuid'=> 'pl-' . Str::uuid(),
+            'user_id'=> $request->user()->id,
+            'title'=> $request->title,
+            'image'=> $imagePath,
+        ])->tracks()->attach($tracks->pluck('id'));
+
+        return redirect()->route('playlists.index');
     }
 
     /**

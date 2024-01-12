@@ -13,6 +13,7 @@ class Playlist extends Model
         'uuid',
         'user_id',
         'title',
+        'image',
     ];
 
     /**
@@ -31,7 +32,7 @@ class Playlist extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
 
-    public function tracks(): belongsToMany
+    public function tracks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Track::class);
     }
