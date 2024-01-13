@@ -18,11 +18,11 @@ import { Link } from '@inertiajs/vue3';
             </Link>
         </template>
         <template #content>
-            <div class="container border_style">
+            <!-- <div class="container border_style">
                 <ul>
-                    COMPOSANT
+                    
                 </ul>
-            </div>
+            </div> -->
             <table>
                 <thead>
                     <tr>

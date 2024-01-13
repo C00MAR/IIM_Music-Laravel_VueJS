@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\ApiController;
 use Inertia\Inertia;
 
 /*
@@ -26,6 +27,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::resource('/playlists', PlaylistController::class);
+    Route::resource('/apikeys', ApiController::class);
 
     Route::middleware('admin')->group(function () {
         Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
@@ -33,11 +35,5 @@ Route::middleware([
         Route::get('/tracks/{track}/edit', [TrackController::class, 'edit'])->name('tracks.edit');
         Route::put('/tracks/{track}', [TrackController::class, 'update'])->name('tracks.update');
         Route::delete('/tracks/{track}', [TrackController::class, 'destroy'])->name('tracks.destroy');
-
-        Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
-        Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
-        Route::get('/playlists/{playlist}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
-        Route::put('/playlists/{playlist}', [PlaylistController::class, 'update'])->name('playlists.update');
-        Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
     });
 });

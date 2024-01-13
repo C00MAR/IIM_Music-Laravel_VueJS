@@ -48,6 +48,10 @@ export default {
                                 :class="[route().current().includes('playlists') ? 'active_tab' : '']">
                             Playlists
                             </Link>
+                            <Link :href="route('apikeys.index')" class="link"
+                                :class="[route().current().includes('apikeys') ? 'active_tab' : '']">
+                            API KEYs
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -202,18 +206,6 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
             }
         }
     }
-
-
-    // .profil_picture {
-    //     transition: all 0.2s ease-in-out;
-    //     border: 1px solid #2A2927;
-    //     padding: 5px;
-    //     border-radius: 32px;
-
-    //     &:hover {
-    //         background-color: #2A2927;
-    //     }
-    // }
 
     .search_container {
         height: 10vh;

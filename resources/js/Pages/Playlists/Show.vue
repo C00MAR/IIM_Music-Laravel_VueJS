@@ -19,16 +19,17 @@ import { Link } from '@inertiajs/vue3';
         </template>
 
         <template #content>
-            <div>
-                <MusicTile
-                v-for="track in playlist.tracks"
-                :key="track.uuid"
-                :track="track"
-                :active="currentTrack === track"
-                @playAudio="playMusic"
-                >
-
-                </MusicTile>
+            <div class="container border_style">
+                <ul>
+                    <MusicTile
+                    v-for="track in playlist.tracks"
+                    :key="track.uuid"
+                    :track="track"
+                    :active="currentTrack === track"
+                    @playAudio="playMusic"
+                    >
+                    </MusicTile>
+                </ul>
             </div>
         </template>
     </MusicLayout>

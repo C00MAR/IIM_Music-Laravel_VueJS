@@ -7,6 +7,7 @@ use App\Models\Track;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use App\Models\ApiKey;
 
 class PlaylistController extends Controller
 {
@@ -80,7 +81,7 @@ class PlaylistController extends Controller
     public function show(Playlist $playlist)
     {
         return Inertia::render('Playlists/Show', [
-            'playlist' => $playlist,
+            'playlist' => $playlist->load('tracks'),
         ]);
     }
 
@@ -134,5 +135,20 @@ class PlaylistController extends Controller
         $playlist->delete();
 
         return redirect()->route('playlists.index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function apikey(Request $request)
+    {
+        $apiKey = $request->all();
+        $user = ApiKey::where('key', $apiKey)->first();
+        $data = Playlist::where('user_id', $user->user_id)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ]);
     }
 }
